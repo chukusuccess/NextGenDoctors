@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
@@ -7,6 +7,14 @@ export default function Chat() {
   const [inputText, setInputText] = useState("");
   const router = useRouter();
   const { patientName } = router.query;
+
+  const messageRef = useRef(null);
+
+  useEffect(() => {
+    if (messageRef.current) {
+      messageRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
   const handleInput = (e) => {
     setInputText(e.target.value);
@@ -22,6 +30,12 @@ export default function Chat() {
 
       setMessages((prevMessages) => [...prevMessages, newMessage]);
       setInputText("");
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSendMessage();
     }
   };
 
@@ -45,6 +59,7 @@ export default function Chat() {
             >
               {messages.map((message, index) => (
                 <div
+                  ref={messageRef}
                   id={message.id}
                   key={index}
                   className={`mb-2 p-2 rounded-lg ${
@@ -60,6 +75,7 @@ export default function Chat() {
                 className="flex-grow border border-gray-300 p-2 rounded-lg mr-2"
                 type="text"
                 value={inputText}
+                onKeyDown={handleKeyDown}
                 onChange={handleInput}
                 placeholder="Type your message"
               />

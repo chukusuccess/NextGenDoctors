@@ -1,4 +1,5 @@
-import { Html, Head, Main, NextScript } from 'next/document'
+import React from "react";
+import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
@@ -31,10 +32,7 @@ export default function Document() {
           content="Provide Consultation from anywhere in the world"
         />
         <meta property="og:site_name" content="NextGen Doctors" />
-        <meta
-          property="og:url"
-          content="https://next-gen-doctors.vercel.app"
-        />
+        <meta property="og:url" content="https://next-gen-doctors.vercel.app" />
         <meta
           property="og:image"
           content="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
@@ -45,5 +43,5 @@ export default function Document() {
         <NextScript />
       </body>
     </Html>
-  )
+  );
 }

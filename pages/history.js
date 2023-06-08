@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Modal } from "antd";
 import Head from "next/head";
 import { useRouter } from "next/router";
