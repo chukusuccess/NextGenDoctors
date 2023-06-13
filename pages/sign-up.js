@@ -22,14 +22,15 @@ const SignUp = () => {
   const handleSignup = (e) => {
     e.preventDefault();
     setErrorMessage("");
+    const name = firstName + " " + lastName;
 
-    const promise = accountClient.create(ID.unique(), email, password, true);
+    const promise = accountClient.create(ID.unique(), email, password, name);
 
     promise.then(
       function (response) {
         console.log(response);
         router.push({
-          pathname: "/login",
+          pathname: "/home",
         });
       },
       function (error) {
@@ -80,7 +81,7 @@ const SignUp = () => {
   return (
     <>
       <Head>
-        <title>Sign-up | NEXTGEN Patients</title>
+        <title>Sign-up | NEXTGEN Doctors</title>
         <meta
           name="description"
           content="Get Consultation from the comfort of your own home"

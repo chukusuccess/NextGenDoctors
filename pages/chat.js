@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { ID } from "appwrite";
+import { databaseClient } from "@/appWrite-client/settings.config";
 
 export default function Chat() {
   const [messages, setMessages] = useState([]);
@@ -21,12 +23,30 @@ export default function Chat() {
   };
 
   const handleSendMessage = () => {
+    console.log(inputText, "outside if");
     if (inputText.trim() !== "") {
+      console.log(inputText, "inside if");
       const newMessage = {
-        id: new Date().getTime().valueOf(),
+        time: new Date().getTime().valueOf(),
         text: inputText,
         incoming: false,
       };
+
+      const promise = databaseClient.createDocument(
+        "64848d3a80e4ab2adf20",
+        "64848d5a68c4d706f556",
+        ID.unique(),
+        { newMessage }
+      );
+
+      promise.then(
+        function (response) {
+          console.log(response, "sent a new msg"); // Success
+        },
+        function (error) {
+          console.log(error, "failed to post msg"); // Failure
+        }
+      );
 
       setMessages((prevMessages) => [...prevMessages, newMessage]);
       setInputText("");
@@ -60,7 +80,7 @@ export default function Chat() {
               {messages.map((message, index) => (
                 <div
                   ref={messageRef}
-                  id={message.id}
+                  id={message.time}
                   key={index}
                   className={`mb-2 p-2 rounded-lg ${
                     message.incoming ? "bg-[#2A9988]" : "bg-[#0099ad]"
@@ -72,7 +92,7 @@ export default function Chat() {
             </div>
             <div className="w-full flex p-4 border-t-2 fixed bottom-0 bg-[#00444d]">
               <input
-                className="flex-grow border border-gray-300 p-2 rounded-lg mr-2"
+                className="flex-grow border bg-gray-600 border-gray-300 p-2 rounded-lg mr-2"
                 type="text"
                 value={inputText}
                 onKeyDown={handleKeyDown}

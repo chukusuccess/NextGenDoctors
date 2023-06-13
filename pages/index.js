@@ -78,7 +78,7 @@ const Login = () => {
   return (
     <>
       <Head>
-        <title>Login | NEXTGEN Patients</title>
+        <title>Login | NEXTGEN Doctors</title>
         <meta
           name="description"
           content="Get Consultation from the comfort of your own home"
