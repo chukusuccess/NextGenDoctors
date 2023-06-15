@@ -40,8 +40,6 @@ function aboutus() {
           </p>
         </div>
       </main>
-
-      <Nav />
     </>
   );
 }
